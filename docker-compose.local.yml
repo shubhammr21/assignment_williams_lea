@@ -1,0 +1,18 @@
+volumes:
+  root_local_postgres_data: {}
+  root_local_postgres_data_backups: {}
+
+services:
+  postgres:
+    build:
+      context: .
+      dockerfile: ./compose/production/postgres/Dockerfile
+    image: root_production_postgres
+    container_name: root_local_postgres
+    volumes:
+      - root_local_postgres_data:/var/lib/postgresql/data
+      - root_local_postgres_data_backups:/backups
+    env_file:
+      - ./.envs/.local/.postgres
+    ports:
+      - 5432:5432

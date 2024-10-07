@@ -1,0 +1,71 @@
+{% load static i18n compress %}
+<!DOCTYPE html>
+{% get_current_language as LANGUAGE_CODE %}
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+  <meta charset="utf-8"/>
+  <meta http-equiv="x-ua-compatible" content="ie=edge"/>
+  <title>
+    {% block title %}
+      root
+    {% endblock title %}
+  </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description"
+        content="Behold My Awesome Project!"/>
+  <meta name="author"
+        content="Shubham"/>
+  <link rel="icon" href="{% static 'images/favicons/favicon.ico' %}"/>
+
+  {% block css %}
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css"
+          integrity="sha512-SbiR/eusphKoMVVXysTKG/7VseWii+Y3FdHrt0EpKgpToZeemhqHeZeLWLhJutz/2ut2Vw1uQEj2MbRF+TVBUA=="
+          crossorigin="anonymous"
+          referrerpolicy="no-referrer"/>
+    {% compress css %}
+      <link href="{% static 'css/project.css' %}" rel="stylesheet"/>
+    {% endcompress %}
+  {% endblock css %}
+</head>
+<body class="{% block bodyclass %}{% endblock bodyclass %}">
+
+<!-- Header Section -->
+{% include 'components/header.html' %}
+
+<main class="container my-5">
+  <div class="row">
+    {% block main %}
+      <article aria-labelledby="content-article" class="col-lg-8">
+        {% block content %}
+          <h2>Main Content Area</h2>
+          <p>This is the main section of the website, containing the bulk of the content. You can put text, images, or
+            anything you want in this area. It uses the tag to represent a self-contained composition.</p>
+        {% endblock content %}
+      </article>
+    {% endblock main %}
+    <aside class="col-lg-4">
+      {% block aside %}
+        <h3>Sidebar</h3>
+        <p>This is the sidebar, which might contain additional navigation, links, or other information that complements
+          the main content.</p>
+      {% endblock aside %}
+    </aside>
+  </div>
+</main>
+
+<!-- Footer Section -->
+{% include 'components/footer.html' %}
+
+{% block javascript %}
+  <script defer
+          src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.min.js"
+          integrity="sha512-1/RvZTcCDEUjY/CypiMz+iqqtaoQfAITmNSJY17Myp4Ms5mdxPS5UV7iOfdZoxcGhzFbOm6sntTKJppjvuhg4g=="
+          crossorigin="anonymous"
+          referrerpolicy="no-referrer"></script>
+  {% compress js %}
+    <script defer src="{% static 'js/project.js' %}"></script>
+  {% endcompress %}
+{% endblock javascript %}
+</body>
+</html>
