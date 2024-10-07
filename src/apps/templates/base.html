@@ -34,6 +34,19 @@
 {% include 'components/header.html' %}
 
 <main class="container my-5">
+  {% if messages %}
+    <section aria-labelledby="messages">
+      {% for message in messages %}
+        <div class="alert alert-dismissible {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+          {{ message }}
+          <button type="button"
+                  class="btn-close"
+                  data-bs-dismiss="alert"
+                  aria-label="Close"></button>
+        </div>
+      {% endfor %}
+    </section>
+  {% endif %}
   <div class="row">
     {% block main %}
       <article aria-labelledby="content-article" class="col-lg-8">
@@ -67,5 +80,22 @@
     <script defer src="{% static 'js/project.js' %}"></script>
   {% endcompress %}
 {% endblock javascript %}
+
+
+{% block modal %}
+{% endblock modal %}
+
+{% block inline_javascript %}
+  {% comment %}
+      Script tags with only code, no src (defer by default). To run
+      with a "defer" so that you run inline code:
+      <script>
+        window.addEventListener('DOMContentLoaded', () => {
+          /* Run whatever you want */
+        });
+      </script>
+    {% endcomment %}
+{% endblock inline_javascript %}
+
 </body>
 </html>
