@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<products>
+  <product>
+    <name>Product A</name>
+    <price>29.99</price>
+    <description>A high-quality product.</description>
+  </product>
+  <product>
+    <name>Product B</name>
+    <price>39.99</price>
+    <description>A premium-grade product.</description>
+  </product>
+</products>
