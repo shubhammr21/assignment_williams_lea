@@ -12,8 +12,6 @@ urlpatterns = [
     # Django Admin, use {% url 'admin:index' %}
     path(settings.ADMIN_URL, admin.site.urls),
     path('', include('src.apps.pages.urls')),
-    # # User management
-    # path("users/", include("src.apps.users.urls", namespace="users")),
     # Media files
     *static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT),
 ]

@@ -49,6 +49,13 @@
   {% endif %}
   <div class="row">
     {% block main %}
+    <aside class="col-lg-4">
+      {% block aside %}
+        <h3>Sidebar</h3>
+        <p>This is the sidebar, which might contain additional navigation, links, or other information that complements
+          the main content.</p>
+      {% endblock aside %}
+    </aside>
       <article aria-labelledby="content-article" class="col-lg-8">
         {% block content %}
           <h2>Main Content Area</h2>
@@ -57,13 +64,6 @@
         {% endblock content %}
       </article>
     {% endblock main %}
-    <aside class="col-lg-4">
-      {% block aside %}
-        <h3>Sidebar</h3>
-        <p>This is the sidebar, which might contain additional navigation, links, or other information that complements
-          the main content.</p>
-      {% endblock aside %}
-    </aside>
   </div>
 </main>
 
