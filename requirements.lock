@@ -20,8 +20,12 @@ asgiref==3.8.1
 attrs==24.2.0
     # via jsonschema
     # via referencing
+certifi==2024.8.30
+    # via requests
 cffi==1.17.1
     # via argon2-cffi-bindings
+charset-normalizer==3.4.0
+    # via requests
 click==8.1.7
     # via uvicorn
 crispy-bootstrap5==2024.10
@@ -53,6 +57,7 @@ httptools==0.6.1
     # via uvicorn
 idna==3.10
     # via anyio
+    # via requests
 inflection==0.5.1
     # via drf-spectacular
 jsonschema==4.23.0
@@ -77,6 +82,7 @@ rcssmin==1.1.2
 referencing==0.35.1
     # via jsonschema
     # via jsonschema-specifications
+requests==2.32.3
 rjsmin==1.2.2
     # via django-compressor
 rpds-py==0.20.0
@@ -90,6 +96,8 @@ typing-extensions==4.12.2
     # via psycopg
 uritemplate==4.1.1
     # via drf-spectacular
+urllib3==2.2.3
+    # via requests
 uvicorn==0.31.0
     # via uvicorn-worker
 uvicorn-worker==0.2.0
