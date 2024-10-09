@@ -1,17 +1,35 @@
 volumes:
-  root_local_postgres_data: {}
-  root_local_postgres_data_backups: {}
+  lea_postgres_data: {}
+  lea_postgres_data_backups: {}
+
+
 
 services:
+  django:
+    build:
+      context: .
+      dockerfile: ./docker/django/Dockerfile.dev
+    image: lea-django
+    container_name: lea-django
+    volumes:
+      - ./:/app
+    depends_on:
+      - postgres
+    env_file:
+      - ./.envs/.local/.django
+      - ./.envs/.local/.postgres
+    command: /start
+    ports:
+      - 8000:8000
   postgres:
     build:
       context: .
-      dockerfile: ./compose/production/postgres/Dockerfile
-    image: root_production_postgres
-    container_name: root_local_postgres
+      dockerfile: ./docker/postgres/Dockerfile
+    image: lea-postgres
+    container_name: lea-postgres
     volumes:
-      - root_local_postgres_data:/var/lib/postgresql/data
-      - root_local_postgres_data_backups:/backups
+      - lea_postgres_data:/var/lib/postgresql/data
+      - lea_postgres_data_backups:/backups
     env_file:
       - ./.envs/.local/.postgres
     ports:
