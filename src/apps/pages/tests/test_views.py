@@ -7,7 +7,6 @@ from src.apps.pages.exceptions import XMLFetchError
 
 
 class LegislationViewTests(TestCase):
-
     @patch("src.apps.pages.fetchers.xml_fetcher.XMLFetcher.fetch")
     @patch("src.apps.pages.transformers.xslt_transformer.XSLTTransformer.transform")
     def test_transform_view_success(self, mock_transform, mock_fetch):

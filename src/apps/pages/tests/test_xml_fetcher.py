@@ -10,7 +10,6 @@ from ..fetchers.xml_fetcher import XMLFetcher
 
 
 class XMLFetcherTests(TestCase):
-
     @patch("src.apps.pages.fetchers.xml_fetcher.requests.get")
     def test_fetch_success(self, mock_get):
         mock_response = Mock()

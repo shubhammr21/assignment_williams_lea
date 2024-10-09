@@ -7,7 +7,6 @@ from ..transformers.xslt_transformer import XSLTTransformer
 
 
 class XSLTTransformerTests(TestCase):
-
     def test_transform_success(self):
         xml_content = b"<root><element>data</element></root>"
         xslt_content = b"""
