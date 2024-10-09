@@ -14,5 +14,5 @@ urlpatterns = [
         name="about",
     ),
     path("transform/", transform_xml, name="transform_xml"),
-    path("transform2/", transform_xml_2, name="transform_xml"),
+    path("transform2/", transform_xml_2, name="transform_xml_2"),
 ]

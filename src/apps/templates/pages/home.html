@@ -1,5 +1,23 @@
 {% extends "base.html" %}
 
-
-
-
+{% block content %}
+  <h2 id="main-heading" class="display-4">Welcome to the Assignment Overview</h2>
+  <p class="lead mt-3">
+    This page presents the key features and structure of the assigned task. Please use the navigation
+    links in the <strong>aside</strong> section or the <strong>navigation bar</strong> to explore different parts of the
+    assignment and review the work completed.
+  </p>
+{% endblock content %}
+{% block aside %}
+  <div class="p-4">
+    <h3 id="aside-heading">Additional Information</h3>
+    <ul class="list-unstyled mt-3">
+      <li>
+        <a href="{% url 'pages:transform_xml' %}">With XSLT</a>
+      </li>
+      <li>
+        <a href="{% url 'pages:transform_xml_2' %}">With Parsing XML</a>
+      </li>
+    </ul>
+  </div>
+{% endblock aside %}
