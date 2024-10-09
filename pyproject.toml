@@ -1,3 +1,84 @@
+[project]
+name = "williams-lea"
+version = "0.1.0"
+description = "Assignment for the williams lea for interview"
+authors = [
+    { name = "Shubham Maurya", email = "shubhammr21@gmail.com" }
+]
+dependencies = [
+    "rcssmin==1.1.2",
+    "argon2-cffi==23.1.0",
+    "whitenoise==6.7.0",
+    "uvicorn[standard]==0.31.0",
+    "uvicorn-worker==0.2.0",
+    "lxml==5.3.0",
+    "django==5.0.9",
+    "django-environ==0.11.2",
+    "django-model-utils==5.0.0",
+    "django-crispy-forms==2.3",
+    "crispy-bootstrap5==2024.10",
+    "django-compressor==4.5.1",
+    "djangorestframework==3.15.2",
+    "django-cors-headers==4.4.0",
+    "drf-spectacular==0.27.2",
+    "gunicorn==23.0.0",
+    "psycopg[c]==3.2.3",
+]
+readme = "README.md"
+requires-python = ">= 3.12.6"
+
+[tool.rye]
+managed = true
+virtual = true
+dev-dependencies = [
+    "watchdog==4.0.2",
+    "Werkzeug[watchdog]==3.0.4",
+    "ipdb==0.13.13",
+    "psycopg[c]==3.2.3",
+    "watchfiles==0.24.0",
+    "mypy==1.11.2",
+    "django-stubs[compatible-mypy]==5.1.0",
+    "pytest==8.3.3",
+    "pytest-sugar==1.0.0",
+    "djangorestframework-stubs==3.15.1",
+    "ruff==0.6.9",
+    "coverage==7.6.1",
+    "djlint==1.35.2",
+    "pre-commit>=4.0.1",
+    "factory-boy==3.3.1",
+    "django-debug-toolbar==4.4.6",
+    "django-extensions==3.2.3",
+    "django-coverage-plugin==3.1.0",
+    "pytest-django==4.9.0",
+]
+
+[tool.rye.scripts]
+format = { chain = ["format:black", "format:ruff", "fix:ruff"] }
+"format:black" = "black ."
+"format:ruff" = "ruff format ."
+"format:isort" = "isort ."
+
+"lint" = { chain = ["check:ruff", "typecheck"] }
+"check:ruff" = "ruff check ."
+"fix:ruff" = "ruff check --fix ."
+
+typecheck = { chain = ["typecheck:mypy"] }
+"typecheck:mypy" = "mypy ."
+
+[tool.tox]
+legacy_tox_ini = """
+    [tox]
+    min_version = 4.0
+    env_list = py312
+    skipsdist = true
+    basepython = python3.12.6
+
+    [testenv]
+    deps = -rrequirements/dev.txt
+    allowlist_externals = make
+    commands = make check
+"""
+
 # ==== pytest ====
 [tool.pytest.ini_options]
 minversion = "6.0"
@@ -15,7 +96,7 @@ plugins = ["django_coverage_plugin"]
 
 # ==== mypy ====
 [tool.mypy]
-python_version = "3.12"
+python_version = "3.12.6"
 check_untyped_defs = true
 ignore_missing_imports = true
 warn_unused_ignores = true
@@ -63,69 +144,69 @@ extend-exclude = [
 
 [tool.ruff.lint]
 select = [
-  "F",
-  "E",
-  "W",
-  "C90",
-  "I",
-  "N",
-  "UP",
-  "YTT",
-  # "ANN", # flake8-annotations: we should support this in the future but 100+ errors atm
-  "ASYNC",
-  "S",
-  "BLE",
-  "FBT",
-  "B",
-  "A",
-  "COM",
-  "C4",
-  "DTZ",
-  "T10",
-  "DJ",
-  "EM",
-  "EXE",
-  "FA",
-  'ISC',
-  "ICN",
-  "G",
-  'INP',
-  'PIE',
-  "T20",
-  'PYI',
-  'PT',
-  "Q",
-  "RSE",
-  "RET",
-  "SLF",
-  "SLOT",
-  "SIM",
-  "TID",
-  "TCH",
-  "INT",
-  # "ARG", # Unused function argument
-  "PTH",
-  "ERA",
-  "PD",
-  "PGH",
-  "PL",
-  "TRY",
-  "FLY",
-  # "NPY",
-  # "AIR",
-  "PERF",
-  # "FURB",
-  # "LOG",
-  "RUF",
+    "F",
+    "E",
+    "W",
+    "C90",
+    "I",
+    "N",
+    "UP",
+    "YTT",
+    # "ANN", # flake8-annotations: we should support this in the future but 100+ errors atm
+    "ASYNC",
+    "S",
+    "BLE",
+    "FBT",
+    "B",
+    "A",
+    "COM",
+    "C4",
+    "DTZ",
+    "T10",
+    "DJ",
+    "EM",
+    "EXE",
+    "FA",
+    'ISC',
+    "ICN",
+    "G",
+    'INP',
+    'PIE',
+    "T20",
+    'PYI',
+    'PT',
+    "Q",
+    "RSE",
+    "RET",
+    "SLF",
+    "SLOT",
+    "SIM",
+    "TID",
+    "TCH",
+    "INT",
+    # "ARG", # Unused function argument
+    "PTH",
+    "ERA",
+    "PD",
+    "PGH",
+    "PL",
+    "TRY",
+    "FLY",
+    # "NPY",
+    # "AIR",
+    "PERF",
+    # "FURB",
+    # "LOG",
+    "RUF",
 ]
 ignore = [
-  "S101", # Use of assert detected https://docs.astral.sh/ruff/rules/assert/
-  "RUF012", # Mutable class attributes should be annotated with `typing.ClassVar`
-  "SIM102", # sometimes it's better to nest
-  "UP038", # Checks for uses of isinstance/issubclass that take a tuple
-          # of types for comparison.
-          # Deactivated because it can make the code slow:
-          # https://github.com/astral-sh/ruff/issues/7871
+    "S101", # Use of assert detected https://docs.astral.sh/ruff/rules/assert/
+    "RUF012", # Mutable class attributes should be annotated with `typing.ClassVar`
+    "SIM102", # sometimes it's better to nest
+    "UP038", # Checks for uses of isinstance/issubclass that take a tuple
+    # of types for comparison.
+    # Deactivated because it can make the code slow:
+    # https://github.com/astral-sh/ruff/issues/7871
 ]
 # The fixes in extend-unsafe-fixes will require
 # provide the `--unsafe-fixes` flag when fixing.
