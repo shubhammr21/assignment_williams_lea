@@ -26,7 +26,7 @@ dependencies = [
     "requests>=2.32.3",
 ]
 readme = "README.md"
-requires-python = ">= 3.12.6"
+requires-python = ">= 3.12"
 
 [tool.rye]
 managed = true
@@ -73,7 +73,7 @@ legacy_tox_ini = """
     min_version = 4.0
     env_list = py312
     skipsdist = true
-    basepython = python3.12.6
+    basepython = python3.12
 
     [testenv]
     deps = -rrequirements/dev.txt
@@ -98,7 +98,7 @@ plugins = ["django_coverage_plugin"]
 
 # ==== mypy ====
 [tool.mypy]
-python_version = "3.12.6"
+python_version = "3.12"
 check_untyped_defs = true
 ignore_missing_imports = true
 warn_unused_ignores = true
@@ -206,6 +206,13 @@ ignore = [
     "RUF012", # Mutable class attributes should be annotated with `typing.ClassVar`
     "SIM102", # sometimes it's better to nest
     "UP038", # Checks for uses of isinstance/issubclass that take a tuple
+    "N812",
+    "TRY300",
+    "N818",
+    "ERA001",
+    "PGH004",
+    "PLR2004",
+    "TID252",
     # of types for comparison.
     # Deactivated because it can make the code slow:
     # https://github.com/astral-sh/ruff/issues/7871

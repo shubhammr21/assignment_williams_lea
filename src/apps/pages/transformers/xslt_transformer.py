@@ -1,4 +1,4 @@
-import lxml.etree as ET  # noqa: N812
+import lxml.etree as ET
 from django.template.loader import render_to_string
 
 
@@ -7,8 +7,8 @@ class XSLTTransformer:
     def transform(xml_content: bytes | str, xslt_content: bytes | str) -> str:
         """Transform XML content using XSLT and return the resulting
         HTML as a string."""
-        xml = ET.fromstring(xml_content)  # noqa: S320
-        xslt = ET.fromstring(xslt_content)  # noqa: S320
+        xml = ET.fromstring(xml_content)
+        xslt = ET.fromstring(xslt_content)
         transform = ET.XSLT(xslt)
         result = transform(xml)
         return str(result)

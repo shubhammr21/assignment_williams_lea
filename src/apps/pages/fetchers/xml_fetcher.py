@@ -1,6 +1,6 @@
 import requests
 
-from ..exceptions import XMLFetchError  # noqa: TID252
+from ..exceptions import XMLFetchError
 
 
 class XMLFetcher:

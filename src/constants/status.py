@@ -8,23 +8,23 @@ And RFC 4918 - https://tools.ietf.org/html/rfc4918
 
 
 def is_informational(code):
-    return 100 <= code <= 199  # noqa: PLR2004
+    return 100 <= code <= 199
 
 
 def is_success(code):
-    return 200 <= code <= 299  # noqa: PLR2004
+    return 200 <= code <= 299
 
 
 def is_redirect(code):
-    return 300 <= code <= 399  # noqa: PLR2004
+    return 300 <= code <= 399
 
 
 def is_client_error(code):
-    return 400 <= code <= 499  # noqa: PLR2004
+    return 400 <= code <= 499
 
 
 def is_server_error(code):
-    return 500 <= code <= 599  # noqa: PLR2004
+    return 500 <= code <= 599
 
 
 HTTP_100_CONTINUE = 100

@@ -1,10 +1,10 @@
-import lxml.etree as ET  # noqa: N812
+import lxml.etree as ET
 
 
 class LegislationContext:
     def get_context(self, xml_content: bytes | str) -> dict:
         """Parse XML content and extract relevant legislation data."""
-        root = ET.fromstring(xml_content)  # noqa: S320
+        root = ET.fromstring(xml_content)
         ns = {
             "leg": "http://www.legislation.gov.uk/namespaces/legislation",
             "dc": "http://purl.org/dc/elements/1.1/",
