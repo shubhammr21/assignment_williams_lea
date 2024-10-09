@@ -1,20 +1,23 @@
-<header class="py-3 mb-4 border-bottom">
-    <div class="container">
-        <div class="d-flex flex-wrap justify-content-center">
-            <a href="/"
-               class=" d-flex align-items-center mb-3 mb-lg-0 me-lg-auto link-body-emphasis text-decoration-none link-dark"
-            >
-                <img style="height: 60px" src="https://www.legislation.gov.uk/images/uk-govt-crest.png" alt="logo"/>
-                <h2 class="mx-2 fw-light align-middle"><span class="fw-semibold">legislation</span>.gov.uk</h2>
-            </a>
-            <div class="align-middle col-12 col-lg-auto mb-3 mb-lg-0" role="search">
-                <a href="https://www.nationalarchives.gov.uk">
-                    <img style="height: 50px"
-                         src="https://www.legislation.gov.uk/images/chrome/nat-archive-delivered-en.svg"
-                         alt="archive"/>
-                </a>
-            </div>
-        </div>
-        {% include 'components/nav.html' %}
+<header class="pt-3 border-bottom">
+  <div class="container">
+    <div class="d-flex flex-wrap justify-content-center">
+      <a href="{% url 'pages:home' %}"
+         class="d-flex align-items-center mb-3 mb-lg-0 me-lg-auto link-body-emphasis text-decoration-none link-dark">
+        <img class="img-fluid logo"
+             src="https://www.legislation.gov.uk/images/uk-govt-crest.png"
+             alt="logo" />
+        <h2 class="mx-2 fw-light align-middle">
+          <span class="fw-semibold">legislation</span>.gov.uk
+        </h2>
+      </a>
+      <div class="align-middle col-12 col-lg-auto mb-3 mb-lg-0" role="search">
+        <a href="https://www.nationalarchives.gov.uk">
+          <img class="img-fluid archive-img"
+               src="https://www.legislation.gov.uk/images/chrome/nat-archive-delivered-en.svg"
+               alt="archive" />
+        </a>
+      </div>
     </div>
+    {% include 'components/nav.html' %}
+  </div>
 </header>

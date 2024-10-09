@@ -10,6 +10,7 @@ body {
   font-family: "Roboto", serif;
   font-weight: 300;
 }
+
 .alert-debug {
   color: black;
   background-color: white;
@@ -33,6 +34,16 @@ article {
 }
 
 .divider {
-  height: 100%;           /* Full height of the surrounding elements */
-  margin: 0 10px;         /* Space around the divider */
+  height: 100%; /* Full height of the surrounding elements */
+  margin: 0 10px; /* Space around the divider */
+}
+
+.logo {
+  height: 60px; /* Set the height you want */
+  width: auto; /* Maintain aspect ratio */
+}
+
+.archive-img {
+  height: 50px; /* Set the height you want */
+  width: auto; /* Maintain aspect ratio */
 }

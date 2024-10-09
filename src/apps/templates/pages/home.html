@@ -9,15 +9,17 @@
   </p>
 {% endblock content %}
 {% block aside %}
-  <div class="p-4">
+  <div class="list-group">
     <h3 id="aside-heading">Additional Information</h3>
-    <ul class="list-unstyled mt-3">
-      <li>
-        <a href="{% url 'pages:transform_xml' %}">With XSLT</a>
-      </li>
-      <li>
-        <a href="{% url 'pages:transform_xml_2' %}">With Parsing XML</a>
-      </li>
-    </ul>
+    <a href="{% url 'pages:home' %}"
+       class="list-group-item list-group-item-action {% if request.resolver_match.url_name == 'home' %}active{% endif %}">
+      Home
+    </a>
+    <a href="{% url 'pages:transform_xml' %}"
+       class="list-group-item list-group-item-action {% if request.resolver_match.url_name == 'transform_xml' %}active{% endif %}">With
+    XSLT</a>
+    <a href="{% url 'pages:transform_xml_2' %}"
+       class="list-group-item list-group-item-action {% if request.resolver_match.url_name == 'transform_xml_2' %}active{% endif %}">With
+    Parsing XML</a>
   </div>
 {% endblock aside %}
