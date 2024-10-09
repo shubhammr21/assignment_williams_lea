@@ -21,7 +21,7 @@ class XMLFetcherTests(TestCase):
         result = XMLFetcher.fetch("http://example.com")
 
         assert result == b"<root><element>data</element></root>"
-        mock_get.assert_called_once_with("http://example.com")
+        mock_get.assert_called_once_with("http://example.com", timeout=10)
 
     @patch("src.apps.pages.fetchers.xml_fetcher.requests.get")
     def test_fetch_failure(self, mock_get):
