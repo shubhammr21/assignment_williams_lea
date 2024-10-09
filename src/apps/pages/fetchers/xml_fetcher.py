@@ -13,6 +13,6 @@ class XMLFetcher:
             resp.raise_for_status()
         except requests.HTTPError as e:
             msg = f"Error fetching XML: {e}"
-            raise XMLFetchError(msg) from e
+            raise XMLFetchError(detail=msg) from e
         else:
             return resp.content
