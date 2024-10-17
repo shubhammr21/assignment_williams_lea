@@ -60,6 +60,23 @@ class TestExceptionHandlingMiddleware:
         assert response.status_code == HTTPStatus.BAD_REQUEST
         assert b"Test error detail" in response.content
 
+    def test_process_exception_with_no_message(self, middleware, request_factory):
+        """
+        Test that the middleware handles BaseError and returns the proper response.
+        """
+
+        class TestBaseError(BaseError):
+            default_code = HTTPStatus.BAD_REQUEST
+            default_detail = ""
+
+        request = request_factory.get("/")
+        exception = TestBaseError()
+
+        response = middleware.process_exception(request, exception)
+
+        assert response.status_code == HTTPStatus.BAD_REQUEST
+        assert b"Something went wrong" in response.content
+
     def test_process_exception_with_generic_unhandled_exception(
         self,
         middleware,
