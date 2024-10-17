@@ -93,7 +93,7 @@ python_files = [
 
 # ==== Coverage ====
 [tool.coverage.run]
-include = ["root/**"]
+include = ["src/**"]
 omit = [
     "*/migrations/*",
     "*/tests/*",
