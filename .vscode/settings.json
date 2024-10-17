@@ -1,0 +1,13 @@
+{
+  "pylint.args": [
+    "--load-plugins",
+    "pylint_django",
+    "--django-settings-module=src.config.settings.local"
+  ],
+  "[python]": {
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "always"
+    },
+    // "editor.defaultFormatter": "charliermarsh.ruff",
+  }
+}
