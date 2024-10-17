@@ -1,6 +1,6 @@
-from django.utils.translation import gettext_lazy as _
+from http import HTTPStatus
 
-from src.constants import status
+from django.utils.translation import gettext_lazy as _
 
 
 class BaseError(Exception):
@@ -10,7 +10,7 @@ class BaseError(Exception):
     """
 
     default_detail = _("A server error occurred.")
-    default_code = status.HTTP_500_INTERNAL_SERVER_ERROR
+    default_code = HTTPStatus.INTERNAL_SERVER_ERROR
 
     def __init__(self, detail=None, code=None):
         self.detail = detail or self.default_detail
