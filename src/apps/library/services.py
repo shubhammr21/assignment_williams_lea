@@ -1,4 +1,5 @@
 from .repositories import AuthorRepository
+from .repositories import BookRepository
 from .repositories import PublisherRepository
 
 
@@ -20,3 +21,17 @@ class PublisherService:
     @staticmethod
     def get_publisher_by_id(publisher_id):
         return PublisherRepository.get_by_id(publisher_id)
+
+
+class BookService:
+    @staticmethod
+    def list_books():
+        return BookRepository.get_all()
+
+    @staticmethod
+    def get_book_by_id(book_id):
+        return BookRepository.get_by_id(book_id)
+
+    @staticmethod
+    def get_books_by_status(status):
+        return BookRepository.get_by_status(status)

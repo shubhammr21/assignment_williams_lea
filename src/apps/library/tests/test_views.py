@@ -5,6 +5,7 @@ from django.urls import reverse
 from rest_framework.test import APIClient
 
 from .factories import AuthorFactory
+from .factories import BookFactory
 from .factories import PublisherFactory
 
 client = APIClient()
@@ -136,4 +137,84 @@ class TestPublisherAPI:
         assert response.status_code == HTTPStatus.NO_CONTENT
         # Confirm that the publisher was deleted
         response = client.get(reverse("publisher-detail", kwargs={"pk": publisher.id}))
+        assert response.status_code == HTTPStatus.NOT_FOUND
+
+
+@pytest.mark.django_db
+class TestBookAPI:
+    def test_list_books_with_pagination(self):
+        author = AuthorFactory(name="Author 1")
+        publisher = PublisherFactory(name="Publisher 1")
+        BookFactory(title="Book 1", authors=[author], publisher=publisher)
+        BookFactory(title="Book 2", authors=[author], publisher=publisher)
+
+        response = client.get(reverse("book-list-create") + "?page_size=1")
+        assert response.status_code == HTTPStatus.OK
+        assert len(response.data["results"]) == 1
+        assert response.data["count"] == 2
+
+    def test_filter_books_by_title(self):
+        author = AuthorFactory(name="Author 1")
+        publisher = PublisherFactory(name="Publisher 1")
+        BookFactory(title="Book X", authors=[author], publisher=publisher)
+
+        response = client.get(reverse("book-list-create") + "?title=X")
+        assert response.status_code == HTTPStatus.OK
+        assert len(response.data["results"]) == 1
+        assert response.data["results"][0]["title"] == "Book X"
+
+    def test_retrieve_book(self):
+        author = AuthorFactory(name="Author 1")
+        publisher = PublisherFactory(name="Publisher 1")
+        book = BookFactory(title="Book 1", authors=[author], publisher=publisher)
+
+        response = client.get(reverse("book-detail", kwargs={"pk": book.id}))
+        assert response.status_code == HTTPStatus.OK
+        assert response.data["title"] == "Book 1"
+
+    def test_create_book(self):
+        author = AuthorFactory()
+        publisher = PublisherFactory()
+
+        payload = {
+            "title": "Book Title",
+            "description": "Book Description",
+            "author_ids": [author.id],
+            "publisher_id": publisher.id,
+        }
+        response = client.post(reverse("book-list-create"), data=payload, format="json")
+        assert response.status_code == HTTPStatus.CREATED
+        assert response.data["title"] == "Book Title"
+
+    def test_update_book(self):
+        author = AuthorFactory(name="Author 1")
+        publisher = PublisherFactory(name="Publisher 1")
+        book = BookFactory(title="Book 1", authors=[author], publisher=publisher)
+        data = {
+            "title": "A Song of Ice and Fire",
+            "description": "Fantasy novel series",
+            "author_ids": [author.id],
+            "publisher_id": publisher.id,
+        }
+        response = client.put(reverse("book-detail", kwargs={"pk": book.id}), data)
+        assert response.status_code == HTTPStatus.OK
+        assert response.data["title"] == "A Song of Ice and Fire"
+
+    def test_partial_update_book(self):
+        author = AuthorFactory(name="Author 1")
+        publisher = PublisherFactory(name="Publisher 1")
+        book = BookFactory(title="Book 1", authors=[author], publisher=publisher)
+        data = {"description": "Book Description"}
+        response = client.patch(reverse("book-detail", kwargs={"pk": book.id}), data)
+        assert response.status_code == HTTPStatus.OK
+        assert response.data["description"] == "Book Description"
+
+    def test_delete_book(self):
+        author = AuthorFactory(name="Author 1")
+        publisher = PublisherFactory(name="Publisher 1")
+        book = BookFactory(title="Book 1", authors=[author], publisher=publisher)
+        response = client.delete(reverse("book-detail", kwargs={"pk": book.id}))
+        assert response.status_code == HTTPStatus.NO_CONTENT
+        # Confirm that the book was deleted
+        response = client.get(reverse("book-detail", kwargs={"pk": book.id}))
         assert response.status_code == HTTPStatus.NOT_FOUND

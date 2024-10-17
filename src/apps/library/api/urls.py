@@ -2,6 +2,8 @@ from django.urls import path
 
 from .views import author_detail_view
 from .views import author_list_create_view
+from .views import book_detail_view
+from .views import book_list_create_view
 from .views import publisher_detail_view
 from .views import publisher_list_create_view
 
@@ -18,6 +20,8 @@ urlpatterns_v1 = [
         publisher_detail_view,
         name="publisher-detail",
     ),
+    path("v1/books/", book_list_create_view, name="book-list-create"),
+    path("v1/books/<int:pk>/", book_detail_view, name="book-detail"),
 ]
 
 urlpatterns = urlpatterns_v1
