@@ -8,6 +8,5 @@
     "editor.codeActionsOnSave": {
       "source.organizeImports": "always"
     },
-    // "editor.defaultFormatter": "charliermarsh.ruff",
   }
 }
