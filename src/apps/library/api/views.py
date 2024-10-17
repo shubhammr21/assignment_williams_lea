@@ -70,9 +70,6 @@ class BookListCreateView(ListCreateAPIView):
     filterset_class = BookFilter
 
     def get_queryset(self):
-        status = self.request.query_params.get("status")
-        if status:
-            return BookService.get_books_by_status(status)
         return BookService.list_books()
 
 
