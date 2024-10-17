@@ -263,3 +263,7 @@ force-single-line = true
 max-args = 7
 max-branches = 18
 max-returns = 10
+
+[tool.flake8]
+max-line-length = 119
+ignore = ["E501"]

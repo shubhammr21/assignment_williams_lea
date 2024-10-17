@@ -71,22 +71,17 @@ class Command(BaseCommand):
         start_time = time.time()
         self._bulk_insert_books_with_authors(count, batch_size)
         elapsed_time = time.time() - start_time
-        self.stdout.write(
-            self.style.SUCCESS(
-                f"Inserted {count} books and assigned authors in {elapsed_time:.2f} seconds",
-            ),
+        msg = (
+            f"Inserted {count} books and assigned authors in {elapsed_time:.2f} seconds"
         )
+        self.stdout.write(self.style.SUCCESS(msg))
 
         # Display total time taken
         total_elapsed_time = time.time() - total_start_time
-        self.stdout.write(
-            self.style.SUCCESS(f"Total time taken: {total_elapsed_time:.2f} seconds"),
-        )
-        self.stdout.write(
-            self.style.SUCCESS(
-                f"Records per second: {count / total_elapsed_time:.2f} records/sec",
-            ),
-        )
+        msg = f"Total time taken: {total_elapsed_time:.2f} seconds"
+        self.stdout.write(self.style.SUCCESS(msg))
+        msg = f"Records per second: {count / total_elapsed_time:.2f} records/sec"
+        self.stdout.write(self.style.SUCCESS(msg))
 
     def _bulk_insert_publishers(self, count, batch_size):
         """Bulk insert publishers with progress tracking."""
@@ -127,8 +122,7 @@ class Command(BaseCommand):
             unit="book",
         ):
             # Pick a random publisher for each book
-            publisher_id = random.choice(publishers)
-            # book = Book(title=faker.catch_phrase(), description=faker.text(), author_id=random.choice(authors))
+            publisher_id = random.choice(publishers)  # noqa: S311
             book = Book(
                 title=faker.catch_phrase(),
                 description=faker.text(),
@@ -137,7 +131,7 @@ class Command(BaseCommand):
             books.append(book)
 
             # Pick 1-3 random authors for each book
-            random_author_ids = random.sample(authors, random.randint(1, 3))
+            random_author_ids = random.sample(authors, random.randint(1, 3))  # noqa: S311
             book_author_relations.append((book, random_author_ids))
 
             if len(books) >= batch_size:
@@ -157,12 +151,13 @@ class Command(BaseCommand):
         for book, author_ids in book_author_relations:
             # Use the latest book object to get its ID
             for author_id in author_ids:
-                book_author_m2m_insert_data.append((book.id, author_id))
+                book_author_m2m_insert_data.append((book.id, author_id))  # noqa: PERF401
 
         # Prepare raw SQL to insert into the many-to-many relationship table
         if book_author_m2m_insert_data:
             with connection.cursor() as cursor:
                 cursor.executemany(
-                    "INSERT INTO library_book_authors (book_id, author_id) VALUES (%s, %s)",
+                    """INSERT INTO library_book_authors (book_id, author_id)
+                    VALUES (%s, %s)""",
                     book_author_m2m_insert_data,
                 )

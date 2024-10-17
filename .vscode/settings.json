@@ -7,6 +7,10 @@
   "[python]": {
     "editor.codeActionsOnSave": {
       "source.organizeImports": "always"
-    },
+    }
+  },
+  "sonarlint.connectedMode.project": {
+    "connectionId": "http-localhost-9000",
+    "projectKey": "Williams-Lea"
   }
 }
