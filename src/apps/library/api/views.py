@@ -1,5 +1,6 @@
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.generics import ListCreateAPIView
+from rest_framework.generics import RetrieveUpdateDestroyAPIView
 
 from src.apps.utils.pagination import StandardPageNumberPagination
 
@@ -19,3 +20,14 @@ class AuthorListCreateView(ListCreateAPIView):
 
 
 author_list_create_view = AuthorListCreateView.as_view()
+
+
+class AuthorDetailView(RetrieveUpdateDestroyAPIView):
+    serializer_class = AuthorSerializer
+    lookup_field = "pk"
+
+    def get_queryset(self):
+        return Author.objects.all()
+
+
+author_detail_view = AuthorDetailView.as_view()

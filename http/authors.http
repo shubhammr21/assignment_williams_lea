@@ -14,5 +14,19 @@ Content-Type: application/json
   "name": "Author's Name",
   "bio": "Author's Bio..."
 }
+### Update Author
+
+PUT http://localhost:8000/api/v1/authors/2/ HTTP/1.1
+Content-Type: application/json
+
+{
+  "name": "Author's Name",
+  "bio": "Author's Bio..."
+}
+
+### Delete Author
+
+DELETE http://localhost:8000/api/v1/authors/2/ HTTP/1.1
+Content-Type: application/json
 
 ###

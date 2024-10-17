@@ -47,3 +47,34 @@ class TestAuthorAPI:
         assert response.status_code == HTTPStatus.OK
         assert len(response.data["results"]) == 1
         assert response.data["results"][0]["name"] == "Author X"
+
+    def test_retrieve_author(self):
+        author = AuthorFactory(name="Author 1")
+        response = client.get(reverse("author-detail", kwargs={"pk": author.id}))
+        assert response.status_code == HTTPStatus.OK
+        assert response.data["name"] == "Author 1"
+
+    def test_update_author(self):
+        author = AuthorFactory(name="Author 1")
+        data = {"name": "Author", "bio": "Bio"}
+        response = client.put(reverse("author-detail", kwargs={"pk": author.id}), data)
+        assert response.status_code == HTTPStatus.OK
+        assert response.data["name"] == "Author"
+
+    def test_partial_update_author(self):
+        author = AuthorFactory(name="Author 1")
+        data = {"bio": "British author"}
+        response = client.patch(
+            reverse("author-detail", kwargs={"pk": author.id}),
+            data,
+        )
+        assert response.status_code == HTTPStatus.OK
+        assert response.data["bio"] == "British author"
+
+    def test_delete_author(self):
+        author = AuthorFactory(name="Author 1")
+        response = client.delete(reverse("author-detail", kwargs={"pk": author.id}))
+        assert response.status_code == HTTPStatus.NO_CONTENT
+        # Confirm that the author was deleted
+        response = client.get(reverse("author-detail", kwargs={"pk": author.id}))
+        assert response.status_code == HTTPStatus.NOT_FOUND
