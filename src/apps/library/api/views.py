@@ -5,8 +5,11 @@ from rest_framework.generics import RetrieveUpdateDestroyAPIView
 from src.apps.utils.pagination import StandardPageNumberPagination
 
 from ..filters import AuthorFilter
+from ..filters import PublisherFilter
 from ..services import AuthorService
+from ..services import PublisherService
 from .serializers import AuthorSerializer
+from .serializers import PublisherSerializer
 
 
 class AuthorListCreateView(ListCreateAPIView):
@@ -31,3 +34,27 @@ class AuthorDetailView(RetrieveUpdateDestroyAPIView):
 
 
 author_detail_view = AuthorDetailView.as_view()
+
+
+class PublisherListCreateView(ListCreateAPIView):
+    pagination_class = StandardPageNumberPagination
+    serializer_class = PublisherSerializer
+    filter_backends = (DjangoFilterBackend,)
+    filterset_class = PublisherFilter
+
+    def get_queryset(self):
+        return PublisherService.list_publishers()
+
+
+publisher_list_create_view = PublisherListCreateView.as_view()
+
+
+class PublisherDetailView(RetrieveUpdateDestroyAPIView):
+    serializer_class = PublisherSerializer
+    lookup_field = "pk"
+
+    def get_queryset(self):
+        return PublisherService.list_publishers()
+
+
+publisher_detail_view = PublisherDetailView.as_view()
