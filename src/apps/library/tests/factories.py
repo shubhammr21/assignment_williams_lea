@@ -3,6 +3,7 @@ from factory import Faker
 from factory import SubFactory
 from factory import post_generation
 from factory.django import DjangoModelFactory
+from factory.fuzzy import FuzzyChoice
 
 from ..models import Author
 from ..models import Book
@@ -33,6 +34,7 @@ class BookFactory(DjangoModelFactory):
     title = Faker("sentence", nb_words=4)
     description = Faker("paragraph")
     publisher = SubFactory(PublisherFactory)
+    status = FuzzyChoice(["draft", "published"])
 
     @post_generation
     def authors(self, create, extracted, **kwargs):
