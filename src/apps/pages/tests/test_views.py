@@ -1,3 +1,4 @@
+from http import HTTPStatus
 from unittest.mock import patch
 
 from django.test import TestCase
@@ -15,14 +16,14 @@ class LegislationViewTests(TestCase):
 
         response = self.client.get(reverse("pages:transform_xml"))
 
-        assert response.status_code == 200
+        assert response.status_code == HTTPStatus.OK
         self.assertContains(response, "<h1>data</h1>")
 
     @patch("src.apps.pages.fetchers.xml_fetcher.XMLFetcher.fetch")
     def test_transform_view_fetch_failure(self, mock_fetch):
         mock_fetch.side_effect = XMLFetchError("Fetch failed")
         response = self.client.get(reverse("pages:transform_xml"))
-        assert response.status_code == 500
+        assert response.status_code == HTTPStatus.INTERNAL_SERVER_ERROR
 
     @patch("src.apps.pages.fetchers.xml_fetcher.XMLFetcher.fetch")
     @patch(
@@ -40,5 +41,5 @@ class LegislationViewTests(TestCase):
 
         response = self.client.get(reverse("pages:transform_xml_2"))
 
-        assert response.status_code == 200
+        assert response.status_code == HTTPStatus.OK
         self.assertContains(response, "Title")
