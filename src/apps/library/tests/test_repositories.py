@@ -37,12 +37,16 @@ class TestPublisherRepository:
 @pytest.mark.django_db
 class TestBookRepository:
     def test_get_all(self):
-        publisher = PublisherFactory(name="Publisher")
-        BookFactory(title="Book 1", publisher=publisher)
+        BookFactory()
         assert len(BookRepository.get_all()) == 1
 
     def test_get_by_id(self):
-        publisher = PublisherFactory(name="Publisher")
-        book = BookFactory(title="Book 2", publisher=publisher)
+        book = BookFactory(title="Book 2")
         fetched_book = BookRepository.get_by_id(book.id)
         assert fetched_book.title == "Book 2"
+
+    def test_get_by_status(self):
+        drafted = [BookFactory(status="draft") for _ in range(3)]
+        published = [BookFactory(status="published") for _ in range(4)]
+        assert BookRepository.get_by_status("draft").count() == len(drafted)
+        assert BookRepository.get_by_status("published").count() == len(published)
