@@ -1,3 +1,4 @@
+from http import HTTPStatus
 from logging import getLogger
 
 from django.shortcuts import render
@@ -22,11 +23,14 @@ class ExceptionHandlingMiddleware:
             return render(
                 request,
                 f"{exception.code}.html",
-                {"error": exception.detail},
+                {"exception": exception.detail},
                 status=exception.code,
             )
-        if isinstance(exception, Exception):
+        if isinstance(exception, Exception):  # noqa: RET503
             logger.exception(exception)
-            return render("500.html", {"error": str(exception)}, status=500)
-
-        return None
+            return render(
+                request,
+                "500.html",
+                {"error": str(exception)},
+                status=HTTPStatus.INTERNAL_SERVER_ERROR,
+            )

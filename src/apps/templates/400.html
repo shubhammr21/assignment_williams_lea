@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}
+  Bad request (400)
+{% endblock title %}
+{% block content %}
+  <h1>Bad request (400)</h1>
+  <p>
+    {% if exception %}
+      {{ exception }}
+    {% else %}
+      Something went wrong with your request. Please try again later.
+    {% endif %}
+  </p>
+{% endblock content %}
