@@ -20,8 +20,8 @@ class TestAuthorAPI:
 
     def test_create_author(self):
         payload = {
-            "name": "Tolkien",
-            "bio": "Author of The Hobbit and Lord of the Rings.",
+            "name": "Author's Name",
+            "bio": "Author's Bio...",
         }
         response = client.post(
             reverse("author-list-create"),
@@ -29,4 +29,21 @@ class TestAuthorAPI:
             format="json",
         )
         assert response.status_code == HTTPStatus.CREATED
-        assert response.data["name"] == "Tolkien"
+        assert response.data["name"] == "Author's Name"
+
+    def test_list_authors_with_pagination(self):
+        authors = [AuthorFactory(name=f"Author {i}") for i in range(1, 5)]
+
+        response = client.get(reverse("author-list-create") + "?page_size=2")
+        assert response.status_code == HTTPStatus.OK
+        assert len(response.data["results"]) == 2
+        assert response.data["count"] == len(authors)
+
+    def test_filter_authors_by_name(self):
+        AuthorFactory(name="Author X")
+        AuthorFactory(name="Author Y")
+
+        response = client.get(reverse("author-list-create") + "?name=X")
+        assert response.status_code == HTTPStatus.OK
+        assert len(response.data["results"]) == 1
+        assert response.data["results"][0]["name"] == "Author X"

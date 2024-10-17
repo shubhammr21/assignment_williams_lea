@@ -1,0 +1,18 @@
+### Get all Authors
+GET http://localhost:8000/api/v1/authors/ HTTP/1.1
+### Get filter Author by name
+GET http://localhost:8000/api/v1/authors/?name=Shannon HTTP/1.1
+### Get paginate Author by name
+GET http://localhost:8000/api/v1/authors/?page=3&page_size=1 HTTP/1.1
+
+### Create new Author
+
+POST http://localhost:8000/api/v1/authors/ HTTP/1.1
+Content-Type: application/json
+
+{
+  "name": "Author's Name",
+  "bio": "Author's Bio..."
+}
+
+###
