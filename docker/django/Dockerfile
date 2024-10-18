@@ -13,7 +13,10 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
   build-essential \
   # psycopg dependencies
   libpq-dev \
-  wait-for-it
+  wait-for-it \
+  # cleaning up unused files
+  && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false \
+  && rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*
 
 # Copying the lock file for Python dependencies
 COPY ./requirements.lock .
@@ -46,14 +49,14 @@ RUN --mount=type=bind,from=python-build-stage,source=/app/wheels,target=/wheels 
 
 # Install required system dependencies
 RUN apt-get update && apt-get install --no-install-recommends -y \
-  # psycopg dependencies
-  libpq-dev \
   # Translations dependencies
   gettext \
+  # psycopg dependencies
+  libpq-dev \
   wait-for-it \
   # cleaning up unused files
   && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false \
-  && rm -rf /var/lib/apt/lists/*
+  && rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*
 
 COPY --chown=django:django ./docker/django/entrypoint /entrypoint
 COPY --chown=django:django ./docker/django/start /start
