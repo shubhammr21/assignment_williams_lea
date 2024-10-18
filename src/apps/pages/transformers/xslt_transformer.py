@@ -7,8 +7,9 @@ class XSLTTransformer:
     def transform(xml_content: bytes | str, xslt_content: bytes | str) -> str:
         """Transform XML content using XSLT and return the resulting
         HTML as a string."""
-        xml = ET.fromstring(xml_content)
-        xslt = ET.fromstring(xslt_content)
+        parser = ET.XMLParser(resolve_entities=False, no_network=True)
+        xml = ET.fromstring(xml_content, parser)
+        xslt = ET.fromstring(xslt_content, parser)
         transform = ET.XSLT(xslt)
         result = transform(xml)
         return str(result)
