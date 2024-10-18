@@ -1,4 +1,3 @@
-# tests/test_models.py
 import pytest
 from django.core.exceptions import ValidationError
 

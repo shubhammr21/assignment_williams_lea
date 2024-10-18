@@ -1,4 +1,3 @@
-# repositories.py
 from .models import Author
 from .models import Book
 from .models import Publisher
