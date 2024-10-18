@@ -59,3 +59,21 @@ class LegislationContextTests(TestCase):
         )
         assert context["content"]["title"] == "Title"
         assert context["content"]["made_date"] == "2024-10-09"
+
+    def test_get_context_no_secondary_prelims(self):
+        xml_content = b"""
+        <root
+            xmlns:leg="http://www.legislation.gov.uk/namespaces/legislation"
+            xmlns:dc="http://purl.org/dc/elements/1.1/"
+            xmlns:atom="http://www.w3.org/2005/Atom">
+            <dc:title>Sample Legislation</dc:title>
+            <atom:link title="signature" href="http://example.com/signature" />
+            <atom:link title="note" href="http://example.com/note" />
+        </root>
+        """
+
+        context = LegislationContext().get_context(xml_content)
+
+        assert context["table_of_contents"]["title"] == "Sample Legislation"
+        assert context["table_of_contents"]["secondary_prelims_document_uri"] == "#"
+        assert context["content"] == {}

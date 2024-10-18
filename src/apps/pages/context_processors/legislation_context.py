@@ -53,9 +53,11 @@ class LegislationContext:
 
     def extract_secondary_data(self, secondary_prelims, ns):
         """Extract secondary prelims data from XML."""
+        if secondary_prelims is None:
+            return {}
         return {
-            "number": secondary_prelims.find("leg:Number", ns).text.strip(),
-            "title": secondary_prelims.find("leg:Title", ns).text.strip(),
+            "number": self.get_text(secondary_prelims.find("leg:Number", ns)),
+            "title": self.get_text(secondary_prelims.find("leg:Title", ns)),
             "subject": self.get_text(
                 secondary_prelims.find(".//leg:Subject/leg:Title", ns),
             ),
