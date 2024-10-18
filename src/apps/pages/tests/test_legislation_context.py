@@ -21,6 +21,25 @@ class LegislationContextTests(TestCase):
                     <leg:Text>Made Date Text</leg:Text>
                     <leg:DateText>2024-10-09</leg:DateText>
                 </leg:MadeDate>
+                <leg:Contents>
+                    <leg:ContentsTitle>Content Title</leg:ContentsTitle>
+                    <leg:ContentsItem
+                        ContentRef="article-1"
+                        IdURI="http://example.com/article/1"
+                        DocumentURI="http://example.com/article/1/made"
+                        RestrictExtent="E+W+S+N.I.">
+                        <leg:ContentsNumber>1</leg:ContentsNumber>
+                        <leg:ContentsTitle>Item 1</leg:ContentsTitle>
+                    </leg:ContentsItem>
+                    <leg:ContentsItem
+                        ContentRef="article-2"
+                        IdURI="http://example.com/article/2"
+                        DocumentURI="http://example.com/article/2/made"
+                        RestrictExtent="E+W+S+N.I.">
+                        <leg:ContentsNumber>2</leg:ContentsNumber>
+                        <leg:ContentsTitle>Item 2</leg:ContentsTitle>
+                    </leg:ContentsItem>
+                </leg:Contents>
                 <leg:ComingIntoForce>
                     <leg:Text>Coming Into Force Text</leg:Text>
                     <leg:DateText>2024-10-10</leg:DateText>
