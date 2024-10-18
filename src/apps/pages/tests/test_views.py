@@ -14,7 +14,6 @@ from src.apps.pages.exceptions import XMLFetchError
 
 
 class TestTemplatesRendering:
-
     @pytest.mark.django_db
     def test_home_page_rendered_in_view(self):
         """
