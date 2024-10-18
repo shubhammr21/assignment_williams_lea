@@ -34,7 +34,7 @@ class Publisher(TimeStampedModel):
 
 
 class Book(TimeStampedModel):
-    STATUS = Choices(
+    STATUS_CHOICES = Choices(
         ("draft", _("Draft")),
         ("published", _("Published")),
     )
@@ -54,8 +54,8 @@ class Book(TimeStampedModel):
     )
     status = models.CharField(
         _("status"),
-        choices=STATUS,
-        default=STATUS.draft,
+        choices=STATUS_CHOICES,
+        default=STATUS_CHOICES.draft,
         max_length=20,
     )
 
