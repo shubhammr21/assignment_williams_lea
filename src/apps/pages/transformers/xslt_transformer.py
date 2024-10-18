@@ -10,7 +10,8 @@ class XSLTTransformer:
         parser = ET.XMLParser(resolve_entities=False, no_network=True)
         xml = ET.fromstring(xml_content, parser)
         xslt = ET.fromstring(xslt_content, parser)
-        transform = ET.XSLT(xslt)
+        ac = ET.XSLTAccessControl.DENY_ALL
+        transform = ET.XSLT(xslt, access_control=ac)
         result = transform(xml)
         return str(result)
 
