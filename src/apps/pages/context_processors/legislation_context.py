@@ -17,11 +17,7 @@ class LegislationContext:
         secondary_prelims = root.find(".//leg:SecondaryPrelims", ns)
         secondary_prelims_uri = self.get_attrib(secondary_prelims, "DocumentURI", "#")
         contents = self.extract_contents(root, ns)
-        secondary_data = (
-            self.extract_secondary_data(secondary_prelims, ns)
-            if secondary_prelims is not None
-            else {}
-        )
+        secondary_data = self.extract_secondary_data(secondary_prelims, ns)
 
         signature_link_href = root.find('.//atom:link[@title="signature"]', ns).get(
             "href",
